@@ -16,8 +16,12 @@ public class PlaintextServer {
   }
 
   public PlaintextServer() {
+
+    String host = System.getProperty("vertx.host", "localhost");
+    int port = Integer.getInteger("vertx.port", 8080);
+
     Undertow.builder()
-      .addHttpListener(8080, "localhost")
+      .addHttpListener(port, host)
       .setBufferSize(1024 * 16)
       .setIoThreads(Runtime.getRuntime().availableProcessors() * 2) //this seems slightly faster in some configurations
       .setSocketOption(Options.BACKLOG, 10000)
